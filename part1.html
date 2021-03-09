@@ -220,7 +220,7 @@
                     if(i==0)                            //x=0 boundry condition
                         right.push(1); 
                     else        
-                        right.push(currentU[i]*(.05-1/deltat)-.5*currentV[i]);      
+                        right.push(currentU[i]*(.05-1/deltat)-.05*currentV[i]);      
                 }
                 currentU = solvematrixU(right);         //calculates the value of U at the current timestep
 

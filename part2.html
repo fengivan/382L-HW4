@@ -192,7 +192,7 @@
         {
             let invMatrix=getMatrixInv((xsteps+1)*2);   //gets the inverse of the A matrix
             let grid=[];                                //2D array containing the values of U and V at all x and t
-            let current=[];                             //array containing the values of U and V at the current timestep, arrangement is [U0, V0, U1, V1, U2, V2, U3, V3....]
+            let current=[];                        //array with the values of U and V at the current timestep, arrangement is [U0, V0, U1, V1,...]
             
             for(let i =0; i<(xsteps+1)*2; i++)              //initialize t=0 boundry conditions, U=0, V=0, except for U(0,0)=1
                     current.push(0);
@@ -210,11 +210,12 @@
                     else if (i==(xsteps+1)*2-1)         //x=1 boundry condition for V
                         right.push(0);
                     else if (i%2==0)                    //U case      
-                        right.push(current[i]*(-1/deltat+.05+1/(2*deltax))+current[i-2]*(-1/(2*deltax))+current[i+1]*(-.05));   //term using known values of U and V
+                        right.push(current[i]*(-1/deltat+.05+1/(2*deltax))+current[i-2]*(-1/(2*deltax))+current[i+1]*(-.05));//known values of U and V
                     else if (i%2==1)                    //V case
-                        right.push(current[i]*(-1/deltat+.05+1/(4*deltax))+current[i+2]*(-1/(4*deltax))+current[i-1]*(-.05));   //term using known values of U and V
+                        right.push(current[i]*(-1/deltat+.05+1/(4*deltax))+current[i+2]*(-1/(4*deltax))+current[i-1]*(-.05));//known values of U and V
                 }
-                current = math.multiply(invMatrix, right);         //calculates the value of U/V at current timestep by multiplying the inverse of the matrix with the created vector
+                console.log(right);
+                current = math.multiply(invMatrix, right);//calculates the value of U/V at current timestep by matrix multiplication
                 grid.push(current);                   //adds solution to the grid
             }
             
